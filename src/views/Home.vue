@@ -4,13 +4,20 @@
         <div @click="togglePopup" class="popup-backdrop"></div>
         <div class="card card-popup">
           <div>
-            <h4>Sign up</h4>
+            <h4>Create account</h4>
+            <p>Hi there! We hate paperwork too, so let's keep it short and friendly</p>
             <form id="signup-form">
-              <label for="username">Name</label>
-              <input type="text" name="name" id="username">
+              <div class="floating-input">
+                <label @focus="" class="subtitle-2" for="username">Name</label>
+                <input class="signup-popup-item" type="text" name="name" id="username">
+              </div>
+              <div class="floating-input">
+                <label class="subtitle-2" for="userpassword">Password</label>
+                <input class="signup-popup-item" type="password" name="password" id="userpassword">
+              </div>
               <div class="button-row">
                 <router-link tag="div" to="/dashboard">
-                  <a class="button">Go to Dashboard</a>
+                  <button @click="authenticateUser" class="button signup-popup-item">Go to Dashboard</button>
                 </router-link>
               </div>
             </form>
@@ -22,9 +29,9 @@
           <header>
             <h3 class="page-header-tagline">The Devil Teaches Bad Web Design</h3>
           </header>
-          <p>Build your web design skills by understanding what makes
+          <p>Become a expert web designer by learning what makes
             <br>
-            the difference between bad and good design.</p>
+            for a horrible experience from the Devil himself!</p>
           <div class="button-row">
             <a @click="togglePopup" class="button">
             get started
@@ -83,6 +90,10 @@ export default {
     togglePopup () {
       this.displayPopup = !this.displayPopup
       this.displayPopup ? document.body.style.overflow = 'hidden' : document.body.style.overflow = 'visible'
+    },
+    authenticateUser () {
+      this.$store.dispatch('authenticate', true)
+      this.togglePopup()
     }
   }
 }
@@ -113,7 +124,7 @@ export default {
 }
 .selling-points {
   flex-basis: 30%;
-  background-color: lightblue;
+  background-color: #676565;
   height: 300px;
 }
 .sign-up-popup {
@@ -136,14 +147,26 @@ export default {
 .card-popup {
   margin: auto;
   display: flex;
-  width: 40%;
-  height: 40%;
+  width: 30%;
+  height: 50%;
 }
 .card-popup > div {
   margin: auto;
+  width: 60%;
+}
+.card-popup > div > h4 {
+  margin: 0;
 }
 #signup-form {
   display: flex;
   flex-direction: column;
+}
+.floating-input label {
+  position: absolute;
+  padding: 1em;
+}
+.signup-popup-item {
+  width: 100%;
+  box-sizing: border-box;
 }
 </style>

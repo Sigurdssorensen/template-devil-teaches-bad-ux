@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <app-navbar></app-navbar>
-    <section>
+    <section :style="{'background-position-x': navbarWidth}">
       <router-view/>
     </section>
   </div>
@@ -13,6 +13,11 @@ import Navbar from './components/Navbar.vue'
 export default {
   components: {
     appNavbar: Navbar
+  },
+  computed: {
+    navbarWidth () {
+      return this.$store.getters.getNavbarWidth
+    }
   }
 }
 </script>
@@ -22,13 +27,13 @@ html, body {
   margin: 0;
   padding: 0;
   font-family: 'Roboto', sans-serif;
+  background-color: #424242;
 }
-
 /* https://material.io/design/typography/the-type-system.html#type-scale */
-body { font-size: 1rem; font-weight: 400; letter-spacing: 0.5; color: #424242; }
+body { font-size: 1rem; font-weight: 400; letter-spacing: 0.5; color: #fff; }
 h1 { font-size: 6rem; font-weight: 300; letter-spacing: -1.5; }
 h2 { font-size: 3.75rem; font-weight: 300; letter-spacing: -0.5; }
-h3 { font-size: 3rem; font-weight: 400; letter-spacing: 0; }
+h3 { font-size: 3rem; font-weight: 400; letter-spacing: 0; font-family: 'Permanent Marker', cursive; opacity: .7;}
 h4 { font-size: 2.125rem; font-weight: 400; letter-spacing: 0.25; }
 h5 { font-size: 1.5rem; font-weight: 400; letter-spacing: 0; }
 h6 { font-size: 1.5rem; font-weight: 500; letter-spacing: 0.15; }
@@ -44,15 +49,30 @@ h6 { font-size: 1.5rem; font-weight: 500; letter-spacing: 0.15; }
 }
 #app > section {
   flex: 1 1 auto;
+  background-image: url('./assets/background.png');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 100vw auto;
+  background-position-x: 70%;
+  background-position-y: 25%;
+  margin-left: 2px;
+}
+@media only screen and (max-width: 1200px){
+  #app > section {
+    background-size: auto 150vh;
+    background-position-x: 40%;
+    background-position-y: 30%;
+  }
 }
 .card, .card-action {
-  background: #fff;
+  background: #676565;
   position: relative;
   margin: 1rem;
   border-radius: 2px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  overflow: hidden;
 }
-.card-action:hover {
+.card-action:hover, .card-popup {
   box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
 ul {
@@ -62,7 +82,7 @@ ul {
 }
 ul a {
   text-decoration: none;
-  color: #424242;
+  color: inherit;
 }
 .button-row {
   padding-top: 1em;
@@ -73,10 +93,28 @@ ul a {
   border-radius: 2px;
   outline-style: none;
   border: none;
-  background-color: #039be5;
+  background-color: #D52916;
   color: #fff;
   font-weight: 500;
   text-decoration: none;
   cursor: pointer;
+}
+input {
+  padding: 1em 0 1em 1em;
+  border-radius: 2px;
+  border: 1px solid rgba(66, 66, 66, .5);
+  background-color: #676565;
+  outline: none;
+}
+input:hover {
+  border: 1px solid #D52916;
+  outline: none;
+}
+input:focus {
+  border: 1px solid #D52916;
+  outline: none;
+}
+.floating-input {
+  padding: .7em 0 .7em 0;
 }
 </style>

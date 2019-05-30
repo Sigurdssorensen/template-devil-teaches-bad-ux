@@ -1,7 +1,7 @@
 <template>
   <nav :style="{ 'flex-basis': computedNavbarWidth }">
     <section>
-      <div class="profile">
+      <div v-if="authenticated" class="profile">
         <i class="material-icons">account_circle</i>
         <p class="subtitle-2" v-if="!collapsed">Firstname Surname</p>
       </div>
@@ -10,7 +10,7 @@
           <i v-if="collapsed" class="material-icons">home</i>
           <a v-if="!collapsed">HOME</a>
         </router-link>
-        <router-link tag="li" to="/dashboard">
+        <router-link v-if="authenticated" tag="li" to="/dashboard">
           <i v-if="collapsed" class="material-icons">dashboard</i>
           <a v-if="!collapsed">DASHBOARD</a>
         </router-link>
@@ -21,6 +21,7 @@
       </ul>
       <div id="collapse-button">
         <i v-if="!collapsed" @click="collapseNavigation" class="material-icons" id="expand-button">input</i>
+        <p v-if="!collapsed" @click="collapseNavigation" class="body-2">Collapse Navigation</p>
         <i v-if="collapsed" @click="collapseNavigation" class="material-icons">input</i>
       </div>
     </section>
@@ -38,12 +39,16 @@ export default {
   computed: {
     computedNavbarWidth () {
       return this.navbarWidth
+    },
+    authenticated () {
+      return this.$store.getters.getAuthStatus
     }
   },
   methods: {
     collapseNavigation () {
       this.collapsed = !this.collapsed
       this.collapsed ? this.navbarWidth = '86px' : this.navbarWidth = '250px'
+      this.$store.dispatch('setNavbarWidth', this.navbarWidth)
     }
   }
 }
@@ -54,6 +59,7 @@ nav {
   flex: 0 0 250px;
   min-height: 100vh;
   box-shadow: 0 0 4px rgba(0,0,0,.14), 0 4px 8px rgba(0,0,0,.28);
+  color: rgba(255, 255, 255, 0.7);
 }
 nav section {
   height: 100%;
@@ -84,7 +90,12 @@ nav section ul li i, #collapse-button {
 #collapse-button {
   position: absolute;
   bottom: 30px;
+  display: flex;
   /* cursor: pointer; */
+}
+#collapse-button > p {
+  padding-left: 0.8em;
+  margin: 0.3em 0 0 0;
 }
 #expand-button {
   transform: rotate(180deg);
