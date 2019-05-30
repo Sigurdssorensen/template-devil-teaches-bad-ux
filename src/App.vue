@@ -78,6 +78,12 @@ h6 { font-size: 1.5rem; font-weight: 500; letter-spacing: 0.15; }
 button:hover {
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
+a {
+  border: none;
+  color: none;
+  text-shadow: none;
+  text-decoration: none;
+}
 ul {
   list-style-type: none;
   padding: 0;
@@ -98,7 +104,7 @@ ul a {
   border: none;
   background-color: #D52916;
   color: #fff;
-  font-weight: 500;
+  font-weight: bold;
   text-decoration: none;
   cursor: pointer;
 }
