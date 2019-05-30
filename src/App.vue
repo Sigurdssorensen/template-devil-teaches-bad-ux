@@ -75,6 +75,9 @@ h6 { font-size: 1.5rem; font-weight: 500; letter-spacing: 0.15; }
 .card-action:hover, .card-popup {
   box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
+button:hover {
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
 ul {
   list-style-type: none;
   padding: 0;
@@ -99,12 +102,18 @@ ul a {
   text-decoration: none;
   cursor: pointer;
 }
+.disabled-button {
+  background-color: #424242;
+  cursor: default;
+}
 input {
   padding: 1em 0 1em 1em;
   border-radius: 2px;
   border: 1px solid rgba(66, 66, 66, .5);
   background-color: #676565;
   outline: none;
+  caret-color: #fff;
+  color: #fff;
 }
 input:hover {
   border: 1px solid #D52916;

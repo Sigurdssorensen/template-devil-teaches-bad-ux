@@ -7,7 +7,7 @@
                 </div>
                 <div>
                     <router-link tag="button" to="/chapter" class="button">CONTINUE TO CHAPTER 1</router-link>
-                    <input id="searchbar" type="text" name="searchbar" placeholder="Feature coming soon.." disabled>
+                    <input id="searchbody" type="text" name="searchbody" placeholder="Feature coming soon.." disabled>
                 </div>
             </div>
         </section>
@@ -19,19 +19,23 @@
                   :index="index"
                   :key="chapter.id"
                   :style="{backgroundImage: 'url('+ require('../assets/'+ 'chapter_img_mazikeen' +'.png')+')'}"
-                  @mouseover="chapter.barHeight = 25"
-                  @mouseleave="chapter.barHeight = 0"
+                  @mouseover="chapter.bodyHeight = 25"
+                  @mouseleave="chapter.bodyHeight = 0"
                   @click="requestChapter(chapter.available)"
                   class="card card-action">
                     <section>
                       <p>{{ chapter.title }}</p>
+                      <div>
+                        <i class="material-icons">access_time</i>
+                        <p class="caption">{{ chapter.time }}</p>
+                      </div>
                     </section>
                     <section
-                    :style="{height: chapter.barHeight + '%'}"
+                    :style="{height: chapter.bodyHeight + '%'}"
                     :class="{ available: chapter.available }">
                       <i v-if="chapter.available" class="material-icons" :style="{color: 'white'}">play_circle_filled</i>
                       <i v-else class="material-icons" :style="{color: '#424242'}">play_circle_filled</i>
-                      <p>{{ chapter.bar }}</p>
+                      <p>{{ chapter.body }}</p>
                     </section>
                 </article>
             </div>
@@ -54,34 +58,38 @@ export default {
         0: {
           id: 0,
           available: true,
-          title: 'Chapter 1 - The Form',
+          title: 'Chapter 1 - Mazikeen',
           img: 'chapter_img_mazikeen',
-          bar: 'Continue to Chapter 1',
-          barHeight: 0
+          body: 'Continue to Chapter 1',
+          time: '10m',
+          bodyHeight: 0
         },
         1: {
           id: 1,
           available: false,
           title: 'Chapter 2 - Smth',
           img: 'chapter_img_mazikeen',
-          bar: 'Currently Unavailable',
-          barHeight: 0
+          body: 'Currently Unavailable',
+          time: '10m',
+          bodyHeight: 0
         },
         3: {
           id: 2,
           available: false,
           title: 'Chapter 3 - Smth',
           img: 'chapter_img_mazikeen',
-          bar: 'Currently Unavailable',
-          barHeight: 0
+          body: 'Currently Unavailable',
+          time: '10m',
+          bodyHeight: 0
         },
         4: {
           id: 3,
           available: false,
           title: 'Chapter 4 - Smth',
           img: 'chapter_img_mazikeen',
-          bar: 'Currently Unavailable',
-          barHeight: 0
+          body: 'Currently Unavailable',
+          time: '10m',
+          bodyHeight: 0
         }
       }
     }
@@ -148,8 +156,20 @@ export default {
   /* background-image: url('../assets/chapter_img_mazikeen.png'); */
   background-size: cover;
 }
-#dashboard > section:nth-of-type(2) > div > .card > section:first-of-type > p {
+#dashboard > section:nth-of-type(2) > div > .card > section:first-of-type {
+  display: flex;
+  justify-content: space-between;
+}
+#dashboard > section:nth-of-type(2) > div > .card > section:first-of-type > p:first-of-type {
   padding: 0 1em 0 1em;
+}
+#dashboard > section:nth-of-type(2) > div > .card > section:first-of-type > div {
+  display: flex;
+  padding: 0.9em 0.6em 0.6em 0;
+}
+#dashboard > section:nth-of-type(2) > div > .card > section:first-of-type > div > .caption {
+  margin: 0;
+  padding: 0.4em 0.2em 0 0;
 }
 #dashboard > section:nth-of-type(2) > div > .card > section:last-of-type {
   display: flex;
@@ -169,8 +189,8 @@ export default {
 #dashboard-navigation-container > div > h3 {
   margin-top: -15px;
 }
-#searchbar {
-  opacity: .9;
+#searchbody {
+  opacity: .95;
   min-width: 200px;
   margin-left: 15px;
   border-radius: 45px;
@@ -181,6 +201,15 @@ export default {
   height: calc(100% - 1rem);
   justify-content: center;
   align-items: center;
+}
+#statistics-view > p {
+  opacity: .5;
+}
+@media only screen and (max-height: 800px) {
+  #statistics-view {
+    margin-top: 3rem;
+    height: calc(100% - 2rem);
+  }
 }
 .available {
   background-color: rgba(213,41,22, .9) !important;

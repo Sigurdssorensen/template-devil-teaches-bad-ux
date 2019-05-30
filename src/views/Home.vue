@@ -8,17 +8,20 @@
             <p>Hi there! We hate paperwork too, so let's keep it short and friendly</p>
             <form id="signup-form">
               <div class="floating-input">
-                <label @focus="" class="subtitle-2" for="username">Name</label>
-                <input class="signup-popup-item" type="text" name="name" id="username">
+                <label :class="{'float-label': nameLabelFocus}" class="subtitle-2" for="username">Name</label>
+                <input @focus="labelFocus('name')" @blur="labelFocus('name')" v-model="name" @input="checkRequiredFields" class="signup-popup-item" type="text" name="name" id="username">
               </div>
               <div class="floating-input">
-                <label class="subtitle-2" for="userpassword">Password</label>
-                <input class="signup-popup-item" type="password" name="password" id="userpassword">
+                <label :class="{'float-label': passwordLabelFocus}" class="subtitle-2" for="userpassword">Password</label>
+                <input @focus="labelFocus('password')" @blur="labelFocus('password')" v-model="password" @input="checkRequiredFields" class="signup-popup-item" type="password" name="password" id="userpassword">
               </div>
               <div class="button-row">
-                <router-link tag="div" to="/dashboard">
+<!--                 <router-link tag="div" to="/dashboard">
                   <button @click="authenticateUser" class="button signup-popup-item">Go to Dashboard</button>
-                </router-link>
+                </router-link> -->
+                <div>
+                  <button @click="authenticateUser" :class="{'disabled-button': signupButtonDeactivated}" class="button signup-popup-item" :disabled="signupButtonDeactivated">Go to Dashboard</button>
+                </div>
               </div>
             </form>
           </div>
@@ -83,7 +86,12 @@
 export default {
   data () {
     return {
-      displayPopup: false
+      displayPopup: false,
+      signupButtonDeactivated: true,
+      name: '',
+      password: '',
+      nameLabelFocus: false,
+      passwordLabelFocus: false
     }
   },
   methods: {
@@ -94,6 +102,27 @@ export default {
     authenticateUser () {
       this.$store.dispatch('authenticate', true)
       this.togglePopup()
+      this.$router.push('/dashboard')
+    },
+    checkRequiredFields () {
+      if (this.name !== '' && this.password !== '') {
+        this.signupButtonDeactivated = false
+      } else {
+        this.signupButtonDeactivated = true
+      }
+    },
+    labelFocus (element) {
+      if (element === 'name') {
+        console.log('name')
+        if (this.name === '') {
+          console.log('empty name')
+          this.nameLabelFocus = !this.nameLabelFocus
+        }
+      } else {
+        if (this.password === '') {
+          this.passwordLabelFocus = !this.passwordLabelFocus
+        }
+      }
     }
   }
 }
@@ -164,6 +193,11 @@ export default {
 .floating-input label {
   position: absolute;
   padding: 1em;
+  color: rgba(255, 255, 255, .7)
+}
+.float-label {
+  padding: 0.1em 1em 1em 1.5em !important;
+  font-size: 0.6rem;
 }
 .signup-popup-item {
   width: 100%;
