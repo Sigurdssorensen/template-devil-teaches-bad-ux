@@ -3,7 +3,7 @@
     <section>
       <div v-if="authenticated" class="profile">
         <i class="material-icons">account_circle</i>
-        <p class="subtitle-2" v-if="!collapsed">Firstname Surname</p>
+        <p class="subtitle-2" v-if="!collapsed">{{ getName }}</p>
       </div>
       <ul>
         <router-link tag="li" to="/">
@@ -42,6 +42,9 @@ export default {
     },
     authenticated () {
       return this.$store.getters.getAuthStatus
+    },
+    getName () {
+      return this.$store.getters.getName
     }
   },
   methods: {
@@ -85,7 +88,7 @@ nav section ul li i, #collapse-button {
 }
 .profile p {
   margin: 6% 0 0 5%;
-  width: 190px;
+  width: 180px;
 }
 #collapse-button {
   position: absolute;

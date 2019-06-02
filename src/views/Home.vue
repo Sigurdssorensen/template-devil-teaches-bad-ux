@@ -16,11 +16,8 @@
                 <input @focus="labelFocus('password')" @blur="labelFocus('password')" v-model="password" @input="checkRequiredFields" class="signup-popup-item" type="password" name="password" id="userpassword">
               </div>
               <div class="button-row">
-<!--                 <router-link tag="div" to="/dashboard">
-                  <button @click="authenticateUser" class="button signup-popup-item">Go to Dashboard</button>
-                </router-link> -->
                 <div>
-                  <button @click="authenticateUser" :class="{'disabled-button': signupButtonDeactivated}" class="button signup-popup-item" :disabled="signupButtonDeactivated">Go to Dashboard</button>
+                  <button type="button" @click="authenticateUser" :class="{'disabled-button': signupButtonDeactivated}" class="button signup-popup-item" :disabled="signupButtonDeactivated">Go to Dashboard</button>
                 </div>
               </div>
             </form>
@@ -36,7 +33,7 @@
             <br>
             for a horrible experience from the Devil himself!</p>
           <div class="button-row">
-            <a @click="togglePopup" class="button">
+            <a @click="checkIfAuthenticated" class="button">
             get started
             </a>
           </div>
@@ -99,7 +96,16 @@ export default {
       this.displayPopup = !this.displayPopup
       this.displayPopup ? document.body.style.overflow = 'hidden' : document.body.style.overflow = 'visible'
     },
+    checkIfAuthenticated () {
+      if (this.$store.getters.getAuthStatus) {
+        this.authenticateUser()
+      } else {
+        this.togglePopup()
+      }
+    },
     authenticateUser () {
+      this.$store.dispatch('setName', this.name)
+      this.$store.dispatch('setPassword', this.password)
       this.$store.dispatch('authenticate', true)
       this.togglePopup()
       this.$router.push('/dashboard')
@@ -113,9 +119,7 @@ export default {
     },
     labelFocus (element) {
       if (element === 'name') {
-        console.log('name')
         if (this.name === '') {
-          console.log('empty name')
           this.nameLabelFocus = !this.nameLabelFocus
         }
       } else {

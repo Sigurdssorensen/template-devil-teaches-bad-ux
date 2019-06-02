@@ -1,9 +1,9 @@
 <template>
   <div id="app">
     <app-navbar></app-navbar>
-    <section :style="{'background-position-x': navbarWidth}">
+    <main :style="{'background-position-x': navbarWidth}">
       <router-view/>
-    </section>
+    </main>
   </div>
 </template>
 
@@ -47,7 +47,7 @@ h6 { font-size: 1.5rem; font-weight: 500; letter-spacing: 0.15; }
 #app {
   display: flex;
 }
-#app > section {
+#app > main {
   flex: 1 1 auto;
   background-image: url('./assets/background.png');
   background-repeat: no-repeat;
@@ -58,7 +58,7 @@ h6 { font-size: 1.5rem; font-weight: 500; letter-spacing: 0.15; }
   margin-left: 2px;
 }
 @media only screen and (max-width: 1200px){
-  #app > section {
+  #app > main {
     background-size: auto 150vh;
     background-position-x: 40%;
     background-position-y: 30%;
@@ -111,6 +111,12 @@ ul a {
 .disabled-button {
   background-color: #424242;
   cursor: default;
+}
+.border-button {
+  padding: 0.9em;
+  background-color: #676565;
+  color: #D52916;
+  border: 1px solid #D52916;
 }
 input {
   padding: 1em 0 1em 1em;

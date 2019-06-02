@@ -14,14 +14,14 @@
         <section>
             <div>
                 <article
-                  v-for="(chapter, index) in cardData"
+                  v-for="(chapter, index) in chapterData"
                   :chapter="chapter"
                   :index="index"
                   :key="chapter.id"
                   :style="{backgroundImage: 'url('+ require('../assets/'+ chapter.img +'.png')+')'}"
                   @mouseover="chapter.bodyHeight = 25"
                   @mouseleave="chapter.bodyHeight = 0"
-                  @click="requestChapter(chapter.available)"
+                  @click="requestChapter(chapter.available, index)"
                   class="card card-action">
                     <section>
                       <p>{{ chapter.title }}</p>
@@ -52,52 +52,15 @@
 
 <script>
 export default {
-  data () {
-    return {
-      cardData: {
-        0: {
-          id: 0,
-          available: true,
-          title: 'Chapter 1 - Mazikeen',
-          img: 'chapter_img_mazikeen',
-          body: 'Continue to Chapter 1',
-          time: '10m',
-          bodyHeight: 0
-        },
-        1: {
-          id: 1,
-          available: false,
-          title: 'Chapter 2 - Misran',
-          img: 'Misran',
-          body: 'Currently Unavailable',
-          time: '10m',
-          bodyHeight: 0
-        },
-        3: {
-          id: 2,
-          available: false,
-          title: 'Chapter 3 - Takehiko',
-          img: 'Takehiko',
-          body: 'Currently Unavailable',
-          time: '10m',
-          bodyHeight: 0
-        },
-        4: {
-          id: 3,
-          available: false,
-          title: 'Chapter 4 - Presence',
-          img: 'ThePresence2',
-          body: 'Currently Unavailable',
-          time: '10m',
-          bodyHeight: 0
-        }
-      }
+  computed: {
+    chapterData () {
+      return this.$store.getters.getChapterData
     }
   },
   methods: {
-    requestChapter (available) {
+    requestChapter (available, index) {
       if (available) {
-        this.$router.push('/chapter')
+        this.$router.push({ name: 'chapter', params: { chapterNumber: index } })
       }
     }
   }
@@ -105,7 +68,7 @@ export default {
 </script>
 
 <style>
-#dashboard {
+#dashboard, #chapter {
   height: 100vh;
   overflow: hidden;
 }

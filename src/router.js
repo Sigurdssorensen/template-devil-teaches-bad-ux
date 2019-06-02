@@ -30,6 +30,7 @@ export default new Router({
     {
       path: '/chapter',
       name: 'chapter',
+      props: true,
       component: () => import('./views/Chapter.vue'),
       beforeEnter: (to, from, next) => {
         if (store.state.authenticated) {
