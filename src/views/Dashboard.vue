@@ -18,7 +18,7 @@
                   :chapter="chapter"
                   :index="index"
                   :key="chapter.id"
-                  :style="{backgroundImage: 'url('+ require('../assets/'+ 'chapter_img_mazikeen' +'.png')+')'}"
+                  :style="{backgroundImage: 'url('+ require('../assets/'+ chapter.img +'.png')+')'}"
                   @mouseover="chapter.bodyHeight = 25"
                   @mouseleave="chapter.bodyHeight = 0"
                   @click="requestChapter(chapter.available)"
@@ -67,8 +67,8 @@ export default {
         1: {
           id: 1,
           available: false,
-          title: 'Chapter 2 - Smth',
-          img: 'chapter_img_mazikeen',
+          title: 'Chapter 2 - Misran',
+          img: 'Misran',
           body: 'Currently Unavailable',
           time: '10m',
           bodyHeight: 0
@@ -76,8 +76,8 @@ export default {
         3: {
           id: 2,
           available: false,
-          title: 'Chapter 3 - Smth',
-          img: 'chapter_img_mazikeen',
+          title: 'Chapter 3 - Takehiko',
+          img: 'Takehiko',
           body: 'Currently Unavailable',
           time: '10m',
           bodyHeight: 0
@@ -85,8 +85,8 @@ export default {
         4: {
           id: 3,
           available: false,
-          title: 'Chapter 4 - Smth',
-          img: 'chapter_img_mazikeen',
+          title: 'Chapter 4 - Presence',
+          img: 'ThePresence2',
           body: 'Currently Unavailable',
           time: '10m',
           bodyHeight: 0
@@ -155,10 +155,13 @@ export default {
   justify-content: space-between;
   /* background-image: url('../assets/chapter_img_mazikeen.png'); */
   background-size: cover;
+  background-position-x: center;
 }
 #dashboard > section:nth-of-type(2) > div > .card > section:first-of-type {
   display: flex;
   justify-content: space-between;
+  /*https://stackoverflow.com/questions/4772906/css-is-it-possible-to-add-a-black-outline-around-each-character-in-text*/
+  text-shadow: 1px 0 0 rgba(0,0,0,.5), 0 -1px 0 rgba(0,0,0,.5), 0 1px 0 rgba(0,0,0,.5), -1px 0 0 rgba(0,0,0,.5);
 }
 #dashboard > section:nth-of-type(2) > div > .card > section:first-of-type > p:first-of-type {
   padding: 0 1em 0 1em;
