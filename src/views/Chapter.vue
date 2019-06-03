@@ -35,14 +35,28 @@
         <p class="subtitle">Step 1/3</p>
         <h6>Create your free hell account</h6>
         <p>Enjoy your free first month unlimited membership with access to all pain and suffering.</p>
-        <input type="text">
-        <input type="text">
+        <form class="signup-form">
+          <div class="floating-input">
+            <label :class="{'float-label': nameLabelFocus}" class="subtitle-2" for="username">Name</label>
+            <input @focus="labelFocus('name')" @blur="labelFocus('name')" v-model="name" @input="checkRequiredFields" class="signup-popup-item" type="text" name="name" id="username">
+          </div>
+          <div class="floating-input">
+            <label :class="{'float-label': passwordLabelFocus}" class="subtitle-2" for="userpassword">Password</label>
+            <input @focus="labelFocus('password')" @blur="labelFocus('password')" v-model="password" @input="checkRequiredFields" class="signup-popup-item" type="password" name="password" id="userpassword">
+          </div>
+          <div class="button-row">
+            <div>
+              <button id="chapter-signup-button" type="button" :class="{'disabled-button-chapter': signupButtonDeactivated}" class="button signup-popup-item" :disabled="signupButtonDeactivated">Go to Dashboard</button>
+            </div>
+          </div>
+        </form>
       </div>
     </section>
   </div>
 </template>
 
 <script>
+import { setTimeout } from 'timers';
 export default {
   props: ['chapterNumber'],
   data () {
@@ -51,13 +65,36 @@ export default {
       tipTimer: 15,
       contentHeight: '93%',
       activeChat: true,
-      chatIndex: 0
+      chatIndex: 0,
+      signupButtonDeactivated: true,
+      name: '',
+      password: '',
+      nameLabelFocus: false,
+      passwordLabelFocus: false
     }
   },
   methods: {
     toggleTip () {
       this.displayTip = !this.displayTip
       this.displayTip ? this.contentHeight = '93%' : this.contentHeight = '94%'
+    },
+    checkRequiredFields () {
+      if (this.name !== '' && this.password !== '') {
+        this.signupButtonDeactivated = false
+      } else {
+        this.signupButtonDeactivated = true
+      }
+    },
+    labelFocus (element) {
+      if (element === 'name') {
+        if (this.name === '') {
+          this.nameLabelFocus = !this.nameLabelFocus
+        }
+      } else {
+        if (this.password === '') {
+          this.passwordLabelFocus = !this.passwordLabelFocus
+        }
+      }
     }
   },
   computed: {
@@ -78,16 +115,19 @@ export default {
     const that = this
     setTimeout(function () {
       that.displayTip = !that.displayTip
-    }, 12000)
+    }, 10000)
     setTimeout(function () {
       that.chatIndex++
       setTimeout(function () {
         that.chatIndex++
         setTimeout(function () {
           that.chatIndex++
-        }, 20000)
-      }, 20000)
-    }, 20000)
+          setTimeout(function () {
+            that.activeChat = false
+          }, 15000)
+        }, 15000)
+      }, 15000)
+    }, 15000)
   }
 }
 </script>
@@ -155,5 +195,11 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+#chapter-content > div > h6 {
+  margin: 0.5rem 0 0.5rem 0;
+}
+.disabled-button-chapter {
+  background-color: #676565;
 }
 </style>

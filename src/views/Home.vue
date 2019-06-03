@@ -6,7 +6,7 @@
           <div>
             <h4>Create account</h4>
             <p>Hi there! We hate paperwork too, so let's keep it short and friendly</p>
-            <form id="signup-form">
+            <form class="signup-form">
               <div class="floating-input">
                 <label :class="{'float-label': nameLabelFocus}" class="subtitle-2" for="username">Name</label>
                 <input @focus="labelFocus('name')" @blur="labelFocus('name')" v-model="name" @input="checkRequiredFields" class="signup-popup-item" type="text" name="name" id="username">
@@ -190,7 +190,7 @@ export default {
 .card-popup > div > h4 {
   margin: 0;
 }
-#signup-form {
+.signup-form {
   display: flex;
   flex-direction: column;
 }
