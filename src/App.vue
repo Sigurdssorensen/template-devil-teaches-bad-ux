@@ -118,7 +118,7 @@ ul a {
   color: #D52916;
   border: 1px solid #D52916;
 }
-input {
+input, select {
   padding: 1em 0 1em 1em;
   border-radius: 2px;
   border: 1px solid rgba(66, 66, 66, .5);
@@ -127,11 +127,11 @@ input {
   caret-color: #fff;
   color: #fff;
 }
-input:hover {
+input:hover, select:hover {
   border: 1px solid #D52916;
   outline: none;
 }
-input:focus {
+input:focus, select:focus {
   border: 1px solid #D52916;
   outline: none;
 }

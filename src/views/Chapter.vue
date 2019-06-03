@@ -30,7 +30,7 @@
         <img :src="getChatImg" alt="image of person talking">
       </div>
     </section>
-    <section id="chapter-content">
+    <section v-if="standardFormActive" class="chapter-content">
       <div :style="{ height: getContentHeight }">
         <p class="subtitle">Step 1/3</p>
         <h6>Create your free hell account</h6>
@@ -52,11 +52,43 @@
         </form>
       </div>
     </section>
+    <section v-else class="chapter-content">
+      <div id="bad-form" :style="{ height: getContentHeight }">
+        <div><h5>Sign Up</h5></div>
+        <div>
+          <div>
+            <label for="name">Name</label>
+            <select name="name" id="name">
+              <option value="0">Name1</option>
+              <option value="1">Name2</option>
+              <option value="2">Name3</option>
+              <option value="3">Name4</option>
+              <option value="4">{{ getName }}</option>
+              <option value="5">Name6</option>
+              <option value="6">Name7</option>
+              <option value="7">Name8</option>
+              <option value="8">Name9</option>
+              <option value="9">Name10</option>
+            </select>
+          </div>
+          <div>
+            <label for="surname">Surname</label>
+            <input type="text" name="surname" disabled>
+            <div id="alphabet">
+              <p v-for="(char, index) in alphabet"
+                :index="index"
+                :key="index"
+                :class="{ 'character-border': characterIndex === index }">{{ char }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   </div>
 </template>
 
 <script>
-import { setTimeout } from 'timers';
+import { setTimeout } from 'timers'
 export default {
   props: ['chapterNumber'],
   data () {
@@ -70,7 +102,10 @@ export default {
       name: '',
       password: '',
       nameLabelFocus: false,
-      passwordLabelFocus: false
+      passwordLabelFocus: false,
+      standardFormActive: true,
+      alphabet: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'],
+      characterIndex: 0
     }
   },
   methods: {
@@ -109,17 +144,21 @@ export default {
     },
     getTipTimer () {
       return this.tipTimer
+    },
+    getName () {
+      return this.$store.getters.getName
     }
   },
   mounted () {
     const that = this
     setTimeout(function () {
-      that.displayTip = !that.displayTip
+      that.displayTip = false
     }, 10000)
     setTimeout(function () {
       that.chatIndex++
       setTimeout(function () {
         that.chatIndex++
+        that.standardFormActive = false
         setTimeout(function () {
           that.chatIndex++
           setTimeout(function () {
@@ -157,11 +196,12 @@ export default {
 #chapter-task > .card {
   height: 5vh;
   display: flex;
+  align-items: center;
   justify-content: space-between;
 }
 #chapter-task > .card > div {
   display: flex;
-  padding: 0.6em 1em 0.4em 0.4em;
+  padding: 0 1em 0 0.4em;
 }
 #chapter-task > .card > div > p {
   margin: 6px 0 0 0;
@@ -185,10 +225,10 @@ export default {
 #chapter-chat > div > div > h5 {
   margin: 1rem 0 0 0;
 }
-#chapter-content {
+.chapter-content {
   flex: 1 1 auto;
 }
-#chapter-content > div {
+.chapter-content > div {
   height: 93%;
   margin: auto;
   width: 30%;
@@ -196,10 +236,36 @@ export default {
   flex-direction: column;
   justify-content: center;
 }
-#chapter-content > div > h6 {
+.chapter-content > div > h6 {
   margin: 0.5rem 0 0.5rem 0;
 }
 .disabled-button-chapter {
   background-color: #676565;
+}
+#bad-form {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+}
+#bad-form > div {
+  display: flex;
+  flex-direction: row;
+}
+#bad-form > div > div {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+}
+#name {
+   overflow-y: scroll;
+}
+#alphabet > p {
+  display: inline;
+}
+select option {
+  height: 10px;
+}
+.character-border {
+  border: 1px solid #D52916;
 }
 </style>
