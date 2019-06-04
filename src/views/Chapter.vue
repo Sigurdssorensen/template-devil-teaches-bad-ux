@@ -23,11 +23,11 @@
     </section>
     <section v-if="activeChat" id="chapter-chat">
       <div class="card">
+        <img :src="getChatImg" alt="image of person talking">
         <div>
           <h5>{{ chapterData[chapterNumber].chat[chatIndex].who }} speaks... </h5>
           <p>{{ chapterData[chapterNumber].chat[chatIndex].body }}</p>
         </div>
-        <img :src="getChatImg" alt="image of person talking">
       </div>
     </section>
     <section v-if="standardFormActive" class="chapter-content">
@@ -46,7 +46,12 @@
           </div>
           <div class="button-row">
             <div>
-              <button id="chapter-signup-button" type="button" :class="{'disabled-button-chapter': signupButtonDeactivated}" class="button signup-popup-item" :disabled="signupButtonDeactivated">Go to Dashboard</button>
+              <button id="chapter-signup-button" type="button"
+                :class="{'disabled-button-chapter': signupButtonDeactivated}"
+                class="button signup-popup-item" :disabled="signupButtonDeactivated">
+                  <i v-if="!signupButtonDeactivated" class="material-icons">warning</i>
+                {{ signupButtonDeactivated ? 'Confront Mazikeen' : 'Mazikeen got you trapped!' }}
+              </button>
             </div>
           </div>
         </form>
@@ -59,26 +64,54 @@
           <div>
             <label for="name">Name</label>
             <select name="name" id="name">
-              <option value="0">Name1</option>
-              <option value="1">Name2</option>
-              <option value="2">Name3</option>
-              <option value="3">Name4</option>
-              <option value="4">{{ getName }}</option>
-              <option value="5">Name6</option>
-              <option value="6">Name7</option>
-              <option value="7">Name8</option>
-              <option value="8">Name9</option>
-              <option value="9">Name10</option>
+              <option value="0"></option>
+              <option value="1">Roger</option>
+              <option value="2">Scott</option>
+              <option value="3">Jill</option>
+              <option value="4">Trevor</option>
+              <option value="5">{{ getName }}</option>
+              <option value="6">Susan</option>
+              <option value="7">Sandra</option>
+              <option value="8">Andy</option>
+              <option value="9">Julia</option>
+              <option value="10">Andrew</option>
             </select>
           </div>
           <div>
             <label for="surname">Surname</label>
-            <input type="text" name="surname" disabled>
+            <input v-model="surname" type="text" name="surname" disabled>
+            <div id="surname-controls">
+              <button @click="shiftCharacterIndex('left')" class="button button-small"><i class="material-icons">chevron_left</i></button>
+              <button @click="shiftCharacterIndex('right')" class="button button-small"><i class="material-icons">chevron_right</i></button>
+              <button @click="setCharacter" class="button button-small"><i class="material-icons">check</i></button>
+              <button @click="clearSurname" class="button button-small"><i class="material-icons">close</i></button>
+            </div>
             <div id="alphabet">
               <p v-for="(char, index) in alphabet"
                 :index="index"
                 :key="index"
                 :class="{ 'character-border': characterIndex === index }">{{ char }}</p>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div id="gender">
+            <div>
+              <input @click="gameOfChance('female')" type="radio" id="radio-male" name="gender" value="0">
+              <label for="male">Male</label>
+            </div>
+            <div>
+              <input @click="gameOfChance('male')" type="radio" id="radio-female" name="gender" value="1">
+              <label for="female">Female</label>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div>
+            <label for="generate-email">Email</label>
+            <input type="text" name="generate-email">
+            <div>
+              <button @click="getRandomEmail" class="button button-small">Generate</button>
             </div>
           </div>
         </div>
@@ -88,24 +121,28 @@
 </template>
 
 <script>
-import { setTimeout } from 'timers'
+import { setTimeout, setInterval, clearInterval } from 'timers'
 export default {
   props: ['chapterNumber'],
   data () {
     return {
-      displayTip: true,
+      displayTip: false,
       tipTimer: 15,
       contentHeight: '93%',
-      activeChat: true,
+      activeChat: false,
       chatIndex: 0,
       signupButtonDeactivated: true,
       name: '',
+      surname: '',
       password: '',
+      email: this.name + '@gmail.com',
       nameLabelFocus: false,
       passwordLabelFocus: false,
       standardFormActive: true,
       alphabet: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'],
-      characterIndex: 0
+      characterIndex: 0,
+      listOfEmails: ['mranderson@thematrix.com', 'stevebrown@theshack.net', 'order@subway.com', 'stevenrogers@teamamerica.com', 'michaelscott@dundermifflin.com', this.name + '@gmail.com'],
+      generatedEmail: ''
     }
   },
   methods: {
@@ -130,6 +167,41 @@ export default {
           this.passwordLabelFocus = !this.passwordLabelFocus
         }
       }
+    },
+    shiftCharacterIndex (direction) {
+      direction === 'left' ? this.characterIndex-- : this.characterIndex++
+      if (this.characterIndex < 0) {
+        this.characterIndex = 27
+      } else if (this.characterIndex > 27) {
+        this.characterIndex = 0
+      }
+    },
+    setCharacter () {
+      this.surname = this.surname + this.alphabet[this.characterIndex]
+    },
+    clearSurname () {
+      this.surname = ''
+    },
+    gameOfChance (gender) {
+      const rand = Math.random()
+      if (rand < 0.4) {
+        setTimeout(function () {
+          clearInterval(interval)
+        }, 2000)
+        const interval = setInterval(function () {
+          gender === 'male' ? gender = 'female' : gender = 'male'
+          document.getElementById('radio-' + gender).checked = true
+        }, 300)
+      } else if (rand < 0.8) {
+        setTimeout(function () {
+          document.getElementById('radio-' + gender).checked = true
+        }, 300)
+      }
+    },
+    getRandomEmail () {
+      const rand = Math.floor(Math.random() * this.listOfEmails.length)
+      console.log(rand)
+      console.log(this.listOfEmails[rand])
     }
   },
   computed: {
@@ -151,22 +223,37 @@ export default {
   },
   mounted () {
     const that = this
-    setTimeout(function () {
+    /*  setTimeout(function () {
       that.displayTip = false
-    }, 10000)
+    }, 10000) */
     setTimeout(function () {
-      that.chatIndex++
+      that.activeChat = true
       setTimeout(function () {
         that.chatIndex++
-        that.standardFormActive = false
         setTimeout(function () {
           that.chatIndex++
           setTimeout(function () {
-            that.activeChat = false
-          }, 15000)
-        }, 15000)
-      }, 15000)
-    }, 15000)
+            that.chatIndex++
+            setTimeout(function () {
+              that.chatIndex++
+              setTimeout(function () {
+                that.chatIndex++
+                setTimeout(function () {
+                  that.chatIndex++
+                  setTimeout(function () {
+                    that.chatIndex++
+                    that.standardFormActive = false
+                    setTimeout(function () {
+                      that.activeChat = false
+                    }, 10)/* 5000 */
+                  }, 0)/* 5000 */
+                }, 0)/* 5000 */
+              }, 0)/* 5000 */
+            }, 0)/* 5000 */
+          }, 0)/* 1500 */
+        }, 0)/* 7000 */
+      }, 0)/* 7000 */
+    }, 0)/* 3000 */
   }
 }
 </script>
@@ -211,7 +298,7 @@ export default {
 }
 #chapter-chat > div {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   flex-direction: row;
 }
 #chapter-chat > div > img {
@@ -241,7 +328,18 @@ export default {
 }
 .disabled-button-chapter {
   background-color: #676565;
+  display: inline-block !important;
+  align-items: none;
 }
+#chapter-signup-button {
+  background-color: #676565;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* #chapter-signup-button > i {
+  padding-left: 0;
+} */
 #bad-form {
   width: 60%;
   display: flex;
@@ -259,11 +357,21 @@ export default {
 #name {
    overflow-y: scroll;
 }
+select option {
+  height: 10px;
+}
+#surname-controls {
+  position: absolute;
+  align-self: flex-end;
+  padding: 1.5em 0.5em 1.5em 0;
+}
 #alphabet > p {
   display: inline;
 }
-select option {
-  height: 10px;
+#gender {
+  margin: 1rem 0;
+  flex-direction: row !important;
+  justify-content: space-evenly;
 }
 .character-border {
   border: 1px solid #D52916;

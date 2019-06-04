@@ -75,8 +75,10 @@ h6 { font-size: 1.5rem; font-weight: 500; letter-spacing: 0.15; }
 .card-action:hover, .card-popup {
   box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
-button:hover {
+button:hover, a:hover {
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  color: rgba(255, 255, 255, .7);
+  opacity: .9;
 }
 a {
   border: none;
@@ -107,6 +109,10 @@ ul a {
   font-weight: bold;
   text-decoration: none;
   cursor: pointer;
+}
+.button-small {
+  padding: 0.2em;
+  margin: 0 0.2em 0 0.2em;
 }
 .disabled-button {
   background-color: #424242;

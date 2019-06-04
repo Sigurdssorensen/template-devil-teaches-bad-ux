@@ -22,24 +22,44 @@ export default new Vuex.Store({
         task: 'fill in the form to defeat Mazikeen',
         chat: {
           0: {
-            who: 'Lucifer',
-            img: 'lucifer_chat_one',
-            body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum'
+            who: 'Lesser Demon',
+            img: 'lesser_demon_chat_one',
+            body: 'Lucifer! He\'s back!'
           },
           1: {
             who: 'Mazikeen',
             img: 'mazikeen_chat_one',
-            body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum'
+            body: 'Lies will curry no favor with me.'
           },
           2: {
-            who: 'Lucifer',
-            img: 'lucifer_chat_two',
-            body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum'
+            who: 'Lesser Demon',
+            img: 'lesser_demon_chat_two',
+            body: 'I swear it, lady Mazikeen. On all my festering boils! He opened a portal to hell and I saw him. There was no mistaking those horrible eyes, they see right into the cracked parts of.. never mind all that. Only one thing matters: Lucifer Morningstar has returned.'
           },
           3: {
             who: 'Mazikeen',
-            img: 'lucifer_and_mazikeen',
-            body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum'
+            img: 'mazikeen_chat_two',
+            body: 'Let him come, I am ready!'
+          },
+          4: {
+            who: 'Lucifer',
+            img: 'lucifer_chat_one',
+            body: 'Mazikeen. Who dares hold you here?'
+          },
+          5: {
+            who: 'Mazikeen',
+            img: 'mazikeen_chat_three',
+            body: 'I am the ruler of Hell. I am the Lighbringer. Do not presume on our old friendship.'
+          },
+          6: {
+            who: 'Mazikeen',
+            img: 'lucifer_and_mazikeen_chat_one',
+            body: 'I served you faithfully, but I am your servant no more!'
+          },
+          7: {
+            who: 'Lucifer',
+            img: 'lucifer_and_mazikeen_chat_two',
+            body: 'Quick, champion! help me by reaching the end of the form.'
           }
         }
       },
