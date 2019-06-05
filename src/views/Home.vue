@@ -104,8 +104,8 @@ export default {
       }
     },
     authenticateUser () {
-      this.$store.dispatch('setName', this.name)
-      this.$store.dispatch('setPassword', this.password)
+      this.$store.dispatch('setName', this.name.toLowerCase())
+      this.$store.dispatch('setPassword', this.password.toLowerCase())
       this.$store.dispatch('authenticate', true)
       this.togglePopup()
       this.$router.push('/dashboard')

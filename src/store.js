@@ -16,7 +16,7 @@ export default new Vuex.Store({
         title: 'Chapter 1 - Mazikeen',
         img: 'chapter_img_mazikeen',
         body: 'Challenge Mazikeen',
-        time: '15m',
+        time: '5m',
         bodyHeight: 0,
         tip: 'If you are unable to complete the lesson you can click the skip button located towards the end of the navigation bar to your left.',
         task: 'fill in the form to defeat Mazikeen',
@@ -79,7 +79,7 @@ export default new Vuex.Store({
         title: 'Chapter 3 - Takehiko',
         img: 'chapter_img_takehiko',
         body: 'Currently Unavailable',
-        time: '10m',
+        time: '15m',
         bodyHeight: 0,
         tip: ''
       },

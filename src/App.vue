@@ -114,6 +114,10 @@ ul a {
   padding: 0.2em;
   margin: 0 0.2em 0 0.2em;
 }
+.button-medium {
+  padding: 0.6em;
+  margin: 0 0.2em 0 0.2em;
+}
 .disabled-button {
   background-color: #424242;
   cursor: default;

@@ -7,8 +7,7 @@
           <i @click="toggleTip" class="material-icons">close</i>
         </div>
         <div>
-          <button class="button">Show me where</button>
-          <button @click="toggleTip" class="button border-button">Dismiss</button>
+          <button @click="toggleTip" class="button">Dismiss</button>
         </div>
       </div>
     </section>
@@ -63,8 +62,8 @@
         <div>
           <div>
             <label for="name">Name</label>
-            <select name="name" id="name">
-              <option value="0"></option>
+            <select v-model="firstname" @change="checkRequiredFieldsBadForm" name="name" id="name">
+              <option value=""></option>
               <option value="1">Roger</option>
               <option value="2">Scott</option>
               <option value="3">Jill</option>
@@ -109,10 +108,24 @@
         <div>
           <div>
             <label for="generate-email">Email</label>
-            <input type="text" name="generate-email">
-            <div>
-              <button @click="getRandomEmail" class="button button-small">Generate</button>
+            <input v-model="email" type="text" name="generate-email" disabled>
+            <div id="email-controls">
+              <button @click="getRandomEmail" class="button button-medium">Generate</button>
             </div>
+          </div>
+        </div>
+        <div>
+          <div>
+            <label for="set-password">Password</label>
+            <input v-model="generatedPassword" @input="checkRequiredFieldsBadForm" type="text" disabled>
+            <div id="password-controls-one">
+              <button @click="togglePasswordGeneration" class="button button-medium">{{ passwordGenerationInterval === undefined ? 'start' : 'stop' }}</button>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div>
+            <button class="button" :class="{'disabled-button': attackButtonDeactivated}" :disabled="attackButtonDeactivated">Attack Mazikeen</button>
           </div>
         </div>
       </div>
@@ -133,22 +146,34 @@ export default {
       chatIndex: 0,
       signupButtonDeactivated: true,
       name: '',
+      firstname: -1,
       surname: '',
       password: '',
-      email: this.name + '@gmail.com',
+      generatedPassword: '',
+      email: '',
       nameLabelFocus: false,
       passwordLabelFocus: false,
       standardFormActive: true,
       alphabet: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'],
       characterIndex: 0,
-      listOfEmails: ['mranderson@thematrix.com', 'stevebrown@theshack.net', 'order@subway.com', 'stevenrogers@teamamerica.com', 'michaelscott@dundermifflin.com', this.name + '@gmail.com'],
-      generatedEmail: ''
+      listOfEmails: ['mranderson@thematrix.com', 'stevebrown@theshack.net', 'order@subway.com', 'stevenrogers@teamamerica.com', 'michaelscott@dundermifflin.com'],
+      passwordGenerationInterval: undefined,
+      listOfPasswords: ['password', '12345', 'thebestpassword', 'lucifer', 'theoffice', 'toaster', 'flamingo', 'redacted', 'straya', 'mypetname', 'brisbane'],
+      attackButtonDeactivated: true
     }
   },
   methods: {
     toggleTip () {
       this.displayTip = !this.displayTip
       this.displayTip ? this.contentHeight = '93%' : this.contentHeight = '94%'
+    },
+    checkRequiredFieldsBadForm () {
+      if (this.firstname == 5 && this.surname !== '' && this.email == this.getName + '@gmail.com' && this.generatedPassword == this.getPassword) {
+        console.log('works')
+        this.attackButtonDeactivated = false
+      } else {
+        this.attackButtonDeactivated = true
+      }
     },
     checkRequiredFields () {
       if (this.name !== '' && this.password !== '') {
@@ -178,6 +203,7 @@ export default {
     },
     setCharacter () {
       this.surname = this.surname + this.alphabet[this.characterIndex]
+      this.checkRequiredFieldsBadForm()
     },
     clearSurname () {
       this.surname = ''
@@ -199,9 +225,25 @@ export default {
       }
     },
     getRandomEmail () {
-      const rand = Math.floor(Math.random() * this.listOfEmails.length)
-      console.log(rand)
-      console.log(this.listOfEmails[rand])
+      let rand = Math.floor(Math.random() * this.listOfEmails.length)
+      while (this.email === this.listOfEmails[rand]) {
+        rand = Math.floor(Math.random() * this.listOfEmails.length)
+      }
+      this.email = this.listOfEmails[rand]
+      this.checkRequiredFieldsBadForm()
+    },
+    togglePasswordGeneration () {
+      if (this.passwordGenerationInterval === undefined) {
+        const that = this
+        this.passwordGenerationInterval = setInterval(function () {
+          let rand = Math.floor(Math.random() * that.listOfPasswords.length)
+          that.generatedPassword = that.listOfPasswords[rand]
+          that.checkRequiredFieldsBadForm()
+        }, 300)
+      } else {
+        clearInterval(this.passwordGenerationInterval)
+        this.passwordGenerationInterval = undefined
+      }
     }
   },
   computed: {
@@ -219,13 +261,16 @@ export default {
     },
     getName () {
       return this.$store.getters.getName
+    },
+    getPassword () {
+      return this.$store.getters.getPassword
     }
   },
   mounted () {
+    this.listOfEmails.push(this.getName + '@gmail.com')
+    this.listOfPasswords.push(this.getPassword)
+
     const that = this
-    /*  setTimeout(function () {
-      that.displayTip = false
-    }, 10000) */
     setTimeout(function () {
       that.activeChat = true
       setTimeout(function () {
@@ -245,15 +290,21 @@ export default {
                     that.standardFormActive = false
                     setTimeout(function () {
                       that.activeChat = false
-                    }, 10)/* 5000 */
-                  }, 0)/* 5000 */
-                }, 0)/* 5000 */
-              }, 0)/* 5000 */
-            }, 0)/* 5000 */
-          }, 0)/* 1500 */
-        }, 0)/* 7000 */
-      }, 0)/* 7000 */
-    }, 0)/* 3000 */
+                      setTimeout(function () {
+                        that.displayTip = true
+                        setTimeout(function () {
+                          that.displayTip = false
+                        }, 10000)
+                      }, 2000)
+                    }, 5000)/* 5000 */
+                  }, 5000)/* 5000 */
+                }, 5000)/* 5000 */
+              }, 5000)/* 5000 */
+            }, 5000)/* 5000 */
+          }, 15000)/* 5000 */
+        }, 5000)/* 7000 */
+      }, 5000)/* 7000 */
+    }, 2000)/* 3000 */
   }
 }
 </script>
@@ -353,6 +404,7 @@ export default {
   width: 50%;
   display: flex;
   flex-direction: column;
+  margin-bottom: 1rem;
 }
 #name {
    overflow-y: scroll;
@@ -360,7 +412,7 @@ export default {
 select option {
   height: 10px;
 }
-#surname-controls {
+#surname-controls, #email-controls, #password-controls-one {
   position: absolute;
   align-self: flex-end;
   padding: 1.5em 0.5em 1.5em 0;
@@ -369,7 +421,6 @@ select option {
   display: inline;
 }
 #gender {
-  margin: 1rem 0;
   flex-direction: row !important;
   justify-content: space-evenly;
 }
