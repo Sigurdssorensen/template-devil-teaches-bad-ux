@@ -6,8 +6,8 @@
                     <h3>Dashboard</h3>
                 </div>
                 <div>
-                    <router-link tag="button" to="/chapter" class="button">CONTINUE TO CHAPTER 1</router-link>
-                    <input id="searchbody" type="text" name="searchbody" placeholder="Feature coming soon.." disabled>
+                  <button @click="requestChapter(true, 0)" class="button">CONTINUE TO CHAPTER 1</button>
+                  <input id="searchbody" type="text" name="searchbody" placeholder="Feature coming soon.." disabled>
                 </div>
             </div>
         </section>
@@ -123,8 +123,9 @@ export default {
 #dashboard > section:nth-of-type(2) > div > .card > section:first-of-type {
   display: flex;
   justify-content: space-between;
-  /*https://stackoverflow.com/questions/4772906/css-is-it-possible-to-add-a-black-outline-around-each-character-in-text*/
+  /* The following code has been sourced from (Yi Jiang 2016) */
   text-shadow: 1px 0 0 rgba(0,0,0,.5), 0 -1px 0 rgba(0,0,0,.5), 0 1px 0 rgba(0,0,0,.5), -1px 0 0 rgba(0,0,0,.5);
+  /* End of sourced code */
 }
 #dashboard > section:nth-of-type(2) > div > .card > section:first-of-type > p:first-of-type {
   padding: 0 1em 0 1em;

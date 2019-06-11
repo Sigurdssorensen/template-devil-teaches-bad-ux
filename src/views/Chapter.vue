@@ -125,7 +125,8 @@
         </div>
         <div>
           <div>
-            <button class="button" :class="{'disabled-button': attackButtonDeactivated}" :disabled="attackButtonDeactivated">Attack Mazikeen</button>
+            <button v-if="!finishButtonActive" @click="showEducationalContent" class="button" :class="{'disabled-button': attackButtonDeactivated}" :disabled="attackButtonDeactivated">Attack Mazikeen</button>
+            <router-link class="button" v-else tag="button" to="/dashboard">FINISH CHAPTER</router-link>
           </div>
         </div>
       </div>
@@ -159,7 +160,8 @@ export default {
       listOfEmails: ['mranderson@thematrix.com', 'stevebrown@theshack.net', 'order@subway.com', 'stevenrogers@teamamerica.com', 'michaelscott@dundermifflin.com'],
       passwordGenerationInterval: undefined,
       listOfPasswords: ['password', '12345', 'thebestpassword', 'lucifer', 'theoffice', 'toaster', 'flamingo', 'redacted', 'straya', 'mypetname', 'brisbane'],
-      attackButtonDeactivated: true
+      attackButtonDeactivated: true,
+      finishButtonActive: false
     }
   },
   methods: {
@@ -169,7 +171,6 @@ export default {
     },
     checkRequiredFieldsBadForm () {
       if (this.firstname == 5 && this.surname !== '' && this.email == this.getName + '@gmail.com' && this.generatedPassword == this.getPassword) {
-        console.log('works')
         this.attackButtonDeactivated = false
       } else {
         this.attackButtonDeactivated = true
@@ -244,6 +245,33 @@ export default {
         clearInterval(this.passwordGenerationInterval)
         this.passwordGenerationInterval = undefined
       }
+    },
+    showEducationalContent () {
+      const that = this
+      that.chatIndex++
+      that.activeChat = true
+      setTimeout(function () {
+        that.chatIndex++
+        setTimeout(function () {
+          that.chatIndex++
+          setTimeout(function () {
+            that.chatIndex++
+            setTimeout(function () {
+              that.chatIndex++
+              setTimeout(function () {
+                that.chatIndex++
+                setTimeout(function () {
+                  that.chatIndex++
+                  setTimeout(function () {
+                    that.activeChat = false
+                    that.finishButtonActive = true
+                  }, 8000)
+                }, 8000)
+              }, 8000)
+            }, 8000)
+          }, 8000)
+        }, 8000)
+      }, 8000)
     }
   },
   computed: {
@@ -296,15 +324,15 @@ export default {
                           that.displayTip = false
                         }, 10000)
                       }, 2000)
-                    }, 5000)/* 5000 */
-                  }, 5000)/* 5000 */
-                }, 5000)/* 5000 */
-              }, 5000)/* 5000 */
-            }, 5000)/* 5000 */
-          }, 15000)/* 5000 */
-        }, 5000)/* 7000 */
-      }, 5000)/* 7000 */
-    }, 2000)/* 3000 */
+                    }, 5000)
+                  }, 5000)
+                }, 5000)
+              }, 5000)
+            }, 5000)
+          }, 15000)
+        }, 5000)
+      }, 5000)
+    }, 2000)
   }
 }
 </script>

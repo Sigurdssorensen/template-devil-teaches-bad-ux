@@ -29,7 +29,8 @@ html, body {
   font-family: 'Roboto', sans-serif;
   background-color: #424242;
 }
-/* https://material.io/design/typography/the-type-system.html#type-scale */
+
+/* The following code has been adapted from: (Google, n.d.c) */
 body { font-size: 1rem; font-weight: 400; letter-spacing: 0.5; color: #fff; }
 h1 { font-size: 6rem; font-weight: 300; letter-spacing: -1.5; }
 h2 { font-size: 3.75rem; font-weight: 300; letter-spacing: -0.5; }
@@ -43,6 +44,7 @@ h6 { font-size: 1.5rem; font-weight: 500; letter-spacing: 0.15; }
 .button { font-size: 0.875rem; font-weight: 500; letter-spacing: 1.25; text-transform: uppercase; }
 .caption { font-size: 0.75rem; font-weight: 400; letter-spacing: 0.4; }
 .overline { font-size: 0.625rem; font-weight: 400; letter-spacing: 1.5; text-transform: uppercase; }
+/* End of adapted code */
 
 #app {
   display: flex;
@@ -69,14 +71,20 @@ h6 { font-size: 1.5rem; font-weight: 500; letter-spacing: 0.15; }
   position: relative;
   margin: 1rem;
   border-radius: 2px;
+  /* The following code has been sourced from: (Thornton, S. n.d.) */
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  /* End of sourced code */
   overflow: hidden;
 }
 .card-action:hover, .card-popup {
+  /* The following code has been sourced from: (Thornton, S. n.d.) */
   box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  /* End of sourced code */
 }
-button:hover, a:hover {
+button:hover{
+  /* The following code has been sourced from: (Thornton, S. n.d.) */
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  /* End of sourced code */
   color: rgba(255, 255, 255, .7);
   opacity: .9;
 }

@@ -33,47 +33,10 @@
             <br>
             for a horrible experience from the Devil himself!</p>
           <div class="button-row">
-            <a @click="checkIfAuthenticated" class="button">
+            <button @click="checkIfAuthenticated" class="button">
             get started
-            </a>
+            </button>
           </div>
-        </div>
-      </section>
-      <section>
-        <div>
-          <h4>some awsome why tagline here</h4>
-          <div class="selling-points-container">
-            <div class="selling-points">
-              <p>test1</p>
-            </div>
-            <div class="selling-points">
-              <p>test2</p>
-            </div>
-            <div class="selling-points">
-              <p>test3</p>
-            </div>
-          </div>
-        </div>
-      </section>
-      <section>
-        <div>
-          <h4>some awsome for whom tagline here</h4>
-          <div class="selling-points-container">
-            <div class="selling-points">
-              <p>test1</p>
-            </div>
-            <div class="selling-points">
-              <p>test2</p>
-            </div>
-            <div class="selling-points">
-              <p>test3</p>
-            </div>
-          </div>
-        </div>
-      </section>
-      <section>
-        <div>
-          <h4>Call to Action</h4>
         </div>
       </section>
     </div>
@@ -138,14 +101,14 @@ export default {
   flex-direction: column;
   justify-content: center;
 }
-#home > section {
+#home > section, #about > section {
   min-height: 100vh;
   display: flex;
 }
 #home > section:not(:first-of-type) > div {
   width: 75%;
 }
-#home > section > div {
+#home > section > div, #about > section > div {
   margin: auto;
 }
 .page-header-tagline {

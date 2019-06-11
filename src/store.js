@@ -18,7 +18,7 @@ export default new Vuex.Store({
         body: 'Challenge Mazikeen',
         time: '5m',
         bodyHeight: 0,
-        tip: 'If you are unable to complete the lesson you can click the skip button located towards the end of the navigation bar to your left.',
+        tip: 'Use the information you entered when signing up to this website when filling out the form below. All fields must be filled out.',
         task: 'fill in the form to defeat Mazikeen',
         chat: {
           0: {
@@ -60,6 +60,41 @@ export default new Vuex.Store({
             who: 'Lucifer',
             img: 'lucifer_and_mazikeen_chat_two',
             body: 'Quick, champion! help me by reaching the end of the form.'
+          },
+          8: {
+            who: 'Lucifer',
+            img: 'lucifer_chat_one',
+            body: 'Yes! We did it. We defeated Mazikeen. Now, Let us talk about this hurdle of a form you had to tackle.'
+          },
+          9: {
+            who: 'Lucifer',
+            img: 'lucifer_chat_one',
+            body: 'When you create a form, remember that less is more. One of the biggest reasons a user leaves a website is due to a lengthy checkout processes.'
+          },
+          10: {
+            who: 'Lucifer',
+            img: 'lucifer_chat_one',
+            body: 'A single-column form layout beats a multi-column layout as it takes less time to complete.'
+          },
+          11: {
+            who: 'Lucifer',
+            img: 'lucifer_chat_one',
+            body: 'Split your form into two or more steps. A multi-step form beats a single-step form as it is perceived as less intimidating.'
+          },
+          12: {
+            who: 'Lucifer',
+            img: 'lucifer_chat_one',
+            body: 'Avoid buttons that clears the content of a input field. If a user clears the fields by accident he or she might not start over.'
+          },
+          13: {
+            who: 'Lucifer',
+            img: 'lucifer_chat_one',
+            body: 'Radio buttons should be stacked vertically as they are faster to process that way.'
+          },
+          14: {
+            who: 'Lucifer',
+            img: 'lucifer_chat_one',
+            body: 'That is it for now Champion, you did good. See you around for our next adventure'
           }
         }
       },
